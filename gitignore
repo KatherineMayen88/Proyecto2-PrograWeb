@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build folders
+build/
+dist/
+
+# Coverage
+coverage/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# JetBrains
+.idea/
+
+# Mac
+.AppleDouble
+.LSOverride
+
+# React
+frontend/node_modules/
+frontend/build/
+
+# Express
+backend/node_modules/
+
+# Env files
+frontend/.env
+backend/.env

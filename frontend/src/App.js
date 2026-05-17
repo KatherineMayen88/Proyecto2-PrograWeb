@@ -15,11 +15,11 @@ import ProtectedRoute from './components/ProtectedRoute';
 import AdminRoute from './components/AdminRoute';
 import Footer from './components/Footer';
 
-const PUBLIC_ROUTES = ['/'];
+const ROUTES_WITH_FOOTER = ['/', '/dashboard', '/shipments/new', '/shipments'];
 
 function App() {
   const { pathname } = useLocation();
-  const showFooter = PUBLIC_ROUTES.includes(pathname);
+  const showFooter = ROUTES_WITH_FOOTER.includes(pathname);
 
   return (
     <>

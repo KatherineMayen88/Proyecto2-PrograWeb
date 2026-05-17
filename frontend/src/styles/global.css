@@ -1050,7 +1050,7 @@ body {
     .sidebar.open { left: 0; }
 
     .dashboard-content {
-        padding: 112px 16px 32px;
+        padding: 225px 16px 32px;
     }
 
     .stats-grid { grid-template-columns: 1fr 1fr; }

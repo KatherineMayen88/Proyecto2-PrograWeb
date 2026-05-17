@@ -19,7 +19,7 @@ body {
     color: var(--color-text);
 }
 
-/* --------------------------------------------------------- NAVBAR --------------------------------------------------------- */
+/* ─── NAVBAR ─────────────────────────────────────────────── */
 
 .navbar {
     height: 88px;
@@ -93,7 +93,7 @@ body {
     width: 100%;
 }
 
-/* --------------------------------------------------------- BUTTONS --------------------------------------------------------- */
+/* ─── BUTTONS ────────────────────────────────────────────── */
 
 .btn-primary {
     background: var(--color-primary);
@@ -116,7 +116,7 @@ body {
     border: 1px solid var(--color-primary);
 }
 
-/* --------------------------------------------------------- HERO --------------------------------------------------------- */
+/* ─── HERO ───────────────────────────────────────────────── */
 
 .hero {
     min-height: calc(100vh - 88px);
@@ -135,7 +135,7 @@ body {
     align-items: center;
 }
 
-/*  HERO LEFT / TRACK CARD --------------------------------------------------------- */
+/* ─── HERO LEFT / TRACK CARD ─────────────────────────────── */
 
 .hero-left {
     display: flex;
@@ -181,7 +181,7 @@ body {
     font-weight: 800;
 }
 
-/* HERO RIGHT --------------------------------------------------------- */
+/* ─── HERO RIGHT ─────────────────────────────────────────── */
 
 .hero .hero-right {
     color: white;
@@ -208,7 +208,7 @@ body {
     letter-spacing: -2px;
 }
 
-
+/* ✅ Esta regla va DESPUÉS de .hero-actions para evitar que .hero p la pise */
 .hero .hero-right p {
     color: rgb(255, 255, 255);
     font-size: 15px;
@@ -224,7 +224,7 @@ body {
     margin-top: 28px;
 }
 
-/*  TAG (fuera del hero) --------------------------------------------------------- */
+/* ─── TAG (fuera del hero) ───────────────────────────────── */
 
 .tag {
     background: #dedcff;
@@ -234,7 +234,7 @@ body {
     font-weight: 700;
 }
 
-/* --------------------------------------------------------- SERVICIOS --------------------------------------------------------- */
+/* ------------------------- SERVICIOS ------------------------- */
 
 .services-section {
     background: #f7f7f8;
@@ -328,7 +328,7 @@ body {
 }
 
 
-/* --------------------------------------------------------- SOBRE NOSOTROS --------------------------------------------------------- */
+/* ------------------------- SOBRE NOSOTROS ------------------------- */
 .about-section {
     background: linear-gradient(135deg, #3a1c8f, #4a22a5);
     padding: 100px 8%;
@@ -429,7 +429,7 @@ body {
 }
 
 
-/* --------------------------------------------------------- FAQ --------------------------------------------------------- */
+/* ------------------------- FAQ ------------------------- */
 .faq-section {
     background: #f7f7f8;
     padding: 110px 8% 130px;
@@ -518,7 +518,7 @@ body {
 
 
 
-/* --------------------------------------------------------- CONTACTO --------------------------------------------------------- */
+/* ------------------------- CONTACTO ------------------------- */
 .contact-section {
     background: #f7f7f8;
     padding: 80px 8% 110px;
@@ -645,7 +645,7 @@ body {
 }
 
 
-/* --------------------------------------------------------- HAMBURGER MENU --------------------------------------------------------- */
+/* ─── HAMBURGER MENU ─────────────────────────────────────── */
 
 .hamburger {
     display: none;
@@ -679,7 +679,7 @@ body {
     transform: translateY(-8px) rotate(-45deg);
 }
 
-/* --------------------------------------------------------- RESPONSIVE --------------------------------------------------------- */
+/* ─── RESPONSIVE ─────────────────────────────────────────── */
 
 @media (max-width: 900px) {
     .services-grid {
@@ -725,6 +725,7 @@ body {
         gap: 40px;
     }
 
+    /* Hero: mostrar texto primero, track card después */
     .hero-left {
         order: 2;
     }
@@ -820,7 +821,7 @@ body {
 }
 
 
-/* --------------------------------------------------------- LOGINN ---------------------------------------------------------*/
+/*LOGINN*/
 .auth-page {
     min-height: 100vh;
     background: linear-gradient(135deg, #2b2463, #4a22a5);
@@ -896,7 +897,7 @@ body {
 }
 
 
-/* --------------------------------------------------------- DASHBOARD ---------------------------------------------------------*/
+/*DASHBOARD*/
 
 /* ── Topbar mobile ── */
 .dashboard-topbar {
@@ -953,7 +954,7 @@ body {
 }
 .sidebar-overlay.visible { display: block; }
 
-/*  Layout ── */
+/* ── Layout ── */
 .dashboard-page {
     min-height: 100vh;
     display: grid;
@@ -1022,7 +1023,7 @@ body {
     overflow-x: hidden;
 }
 
-/*  Responsive --------------------------------------------------------- */
+/* ── Responsive ── */
 @media (max-width: 768px) {
 
     .dashboard-topbar { display: flex; }
@@ -1108,10 +1109,10 @@ body {
 }
 
 
-/* --------------------------------------------------------- CREATE SHIPMENT ---------------------------------------------------------*/
+/*CREATE SHIPMENT*/
 .shipment-form-container {
     width: 100%;
-    max-width: 900px;
+    max-width: 1100px;
     background: white;
     padding: 40px 48px;
     border-radius: 18px;
@@ -1276,7 +1277,7 @@ body {
 }
 
 
-/* --------------------------------------------------------- ENVIOS DE CADA USUAIRO, API CONSUMIENDO REAL ---------------------------------------------------------*/
+/*ENVIOS DE CADA USUAIRO, API CONSUMIENDO REAL*/
 .shipments-header h1 {
     margin: 0 0 10px;
     color: #2b2463;
@@ -1360,7 +1361,7 @@ body {
 }
 
 
-/* --------------------------------------------------------- admin users ---------------------------------------------------------*/
+/*admin users*/
 .table-title {
     margin-top: 0;
     color: #2b2463;
@@ -1416,7 +1417,7 @@ body {
 }
 
 
-/*  ---------------------------------------------------------admin dashboard ---------------------------------------------------------*/
+/*admin dashboard*/
 .stats-grid {
     margin-top: 40px;
     display: grid;
@@ -1462,7 +1463,7 @@ body {
 }
 
 
-/* --------------------------------------------------------- tracking de pedido ---------------------------------------------------------*/
+/*tracking de pedido*/
 .tracking-result {
     margin-top: 24px;
     background: rgba(255, 255, 255, 0.14);
@@ -1765,7 +1766,7 @@ select:focus {
     margin-top: 10px;
 }
 
-/* --------------------------------------------------------- FOOTER --------------------------------------------------------- */
+/* ─── FOOTER ─────────────────────────────────────────────── */
 
 .footer {
     background: linear-gradient(135deg, #0f0c29, #1a1560, #2b2463);
@@ -1960,4 +1961,18 @@ select:focus {
     .footer-bottom-links {
         gap: 16px;
     }
+}
+
+/* ── Validación de formularios ── */
+.input-error {
+    border-color: #e53e3e !important;
+}
+
+.field-error {
+    color: #e53e3e;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: -16px;
+    margin-bottom: 12px;
+    display: block;
 }

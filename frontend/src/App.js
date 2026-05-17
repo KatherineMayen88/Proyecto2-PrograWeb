@@ -15,7 +15,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import AdminRoute from './components/AdminRoute';
 import Footer from './components/Footer';
 
-const ROUTES_WITH_FOOTER = ['/', '/dashboard', '/shipments/new', '/shipments'];
+const ROUTES_WITH_FOOTER = ['/', '/dashboard'];
 
 function App() {
   const { pathname } = useLocation();

@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import api from '../api/axios';
-
-import { Link } from 'react-router-dom';
 
 function CreateShipment() {
 
@@ -22,9 +20,7 @@ function CreateShipment() {
     });
 
     const handleChange = (e) => {
-
         const { name, value, type, checked } = e.target;
-
         setFormData({
             ...formData,
             [name]: type === 'checkbox' ? checked : value
@@ -32,42 +28,19 @@ function CreateShipment() {
     };
 
     const calculateCost = () => {
-
         let total = 0;
-
-        total += formData.destinationType === 'Nacional'
-            ? 35
-            : 90;
-
+        total += formData.destinationType === 'Nacional' ? 35 : 90;
         total += Number(formData.weight || 0) * 12;
-
-        if (formData.serviceType === 'Expres') {
-            total += 35;
-        }
-
-        if (formData.homePickup) {
-            total += 15;
-        }
-
-        if (formData.insurance) {
-            total += 25;
-        }
-
-        if (formData.region === 'Departamental') {
-            total += 20;
-        }
-
-        if (formData.region === 'Internacional') {
-            total += 60;
-        }
-
+        if (formData.serviceType === 'Expres') total += 35;
+        if (formData.homePickup) total += 15;
+        if (formData.insurance) total += 25;
+        if (formData.region === 'Departamental') total += 20;
+        if (formData.region === 'Internacional') total += 60;
         return total;
     };
 
     const handleSubmit = async (e) => {
-
         e.preventDefault();
-
         if (
             !formData.recipientName.trim() ||
             !formData.recipientPhone.trim() ||
@@ -78,22 +51,12 @@ function CreateShipment() {
             alert('Complete todos los campos.');
             return;
         }
-
         try {
-
-            await api.post('/shipments', {
-                ...formData,
-                cost: calculateCost()
-            });
-
+            await api.post('/shipments', { ...formData, cost: calculateCost() });
             alert('Envío creado correctamente');
-
             navigate('/shipments');
-
         } catch (error) {
-
             alert('Error creando envío');
-
         }
     };
 
@@ -102,25 +65,13 @@ function CreateShipment() {
 
             <aside className="sidebar">
                 <div>
-                    <h2 className="sidebar-logo">
-                        SkyShip
-                    </h2>
-
+                    <h2 className="sidebar-logo">SkyShip<br />Client</h2>
                     <nav className="sidebar-nav">
-                        <Link to="/dashboard">
-                            Dashboard
-                        </Link>
-
-                        <Link to="/shipments/new">
-                            Crear envío
-                        </Link>
-
-                        <Link to="/shipments">
-                            Mis envíos
-                        </Link>
+                        <Link to="/dashboard">★ &nbsp; Dashboard</Link>
+                        <Link to="/shipments/new">★ &nbsp; Crear envío</Link>
+                        <Link to="/shipments">★ &nbsp; Mis envíos</Link>
                     </nav>
                 </div>
-
                 <button
                     className="logout-button"
                     onClick={() => {
@@ -137,151 +88,154 @@ function CreateShipment() {
 
                 <div className="shipment-form-container">
 
-                    <h1 className="shipment-title">
-                        Crear envío
-                    </h1>
+                    <h1 className="shipment-title">Crear envío en SkyShip Express</h1>
 
                     <form onSubmit={handleSubmit}>
 
-                        <label className="shipment-label">
-                            Nombre del destinatario
-                        </label>
+                        <div className="shipment-grid">
 
-                        <input
-                            type="text"
-                            name="recipientName"
-                            required
-                            className="shipment-input"
-                            onChange={handleChange}
-                        />
-
-                        <label className="shipment-label">
-                            Teléfono del destinatario
-                        </label>
-
-                        <input
-                            type="text"
-                            name="recipientPhone"
-                            required
-                            className="shipment-input"
-                            onChange={handleChange}
-                        />
-
-                        <label className="shipment-label">
-                            Dirección de destino
-                        </label>
-
-                        <input
-                            type="text"
-                            name="destinationAddress"
-                            required
-                            className="shipment-input"
-                            onChange={handleChange}
-                        />
-
-                        <label className="shipment-label">
-                            Región
-                        </label>
-
-                        <select
-                            name="region"
-                            className="shipment-input"
-                            required
-                            onChange={handleChange}
-                        >
-                            <option value="Metropolitana">Metropolitana</option>
-                            <option value="Departamental">Departamental</option>
-                            <option value="Internacional">Internacional</option>
-                        </select>
-
-                        <label className="shipment-label">
-                            Tipo de destino
-                        </label>
-
-                        <select
-                            name="destinationType"
-                            className="shipment-input"
-                            required
-                            onChange={handleChange}
-                        >
-                            <option value="Nacional">Nacional</option>
-                            <option value="Internacional">Internacional</option>
-                        </select>
-
-                        <label className="shipment-label">
-                            Descripción del paquete
-                        </label>
-
-                        <textarea
-                            name="packageDescription"
-                            className="shipment-textarea"
-                            required
-                            onChange={handleChange}
-                        ></textarea>
-
-                        <label className="shipment-label">
-                            Peso (kg)
-                        </label>
-
-                        <input
-                            type="number"
-                            name="weight"
-                            className="shipment-input"
-                            required
-                            onChange={handleChange}
-                        />
-
-                        <label className="shipment-label">
-                            Tipo de servicio
-                        </label>
-
-                        <select
-                            name="serviceType"
-                            className="shipment-input"
-                            required
-                            onChange={handleChange}
-                        >
-                            <option value="Estandar">Estándar</option>
-                            <option value="Expres">Exprés</option>
-                        </select>
-
-                        <div className="shipment-checks">
-
-                            <label>
+                            {/* Nombre completo */}
+                            <div className="shipment-field">
+                                <label className="shipment-label">Nombre completo *</label>
                                 <input
-                                    type="checkbox"
-                                    name="homePickup"
+                                    type="text"
+                                    name="recipientName"
+                                    required
+                                    className="shipment-input"
+                                    placeholder="Ingrese su nombre completo"
                                     onChange={handleChange}
                                 />
+                            </div>
 
-                                Recolección a domicilio
-                            </label>
-
-                            <label>
+                            {/* Teléfono */}
+                            <div className="shipment-field">
+                                <label className="shipment-label">Telefono *</label>
                                 <input
-                                    type="checkbox"
-                                    name="insurance"
+                                    type="text"
+                                    name="recipientPhone"
+                                    required
+                                    className="shipment-input"
+                                    placeholder="Ingrese su numero de telefono"
                                     onChange={handleChange}
                                 />
+                            </div>
 
-                                Seguro contra pérdida
-                            </label>
+                            {/* Dirección — ocupa las 2 columnas */}
+                            <div className="shipment-field full">
+                                <label className="shipment-label">Direccion *</label>
+                                <input
+                                    type="text"
+                                    name="destinationAddress"
+                                    required
+                                    className="shipment-input"
+                                    placeholder="Ingrese su dirección de destino"
+                                    onChange={handleChange}
+                                />
+                            </div>
+
+                            {/* Región */}
+                            <div className="shipment-field">
+                                <label className="shipment-label">Región *</label>
+                                <select
+                                    name="region"
+                                    className="shipment-input"
+                                    required
+                                    onChange={handleChange}
+                                >
+                                    <option value="Metropolitana">Metropolitana</option>
+                                    <option value="Departamental">Departamental</option>
+                                    <option value="Internacional">Internacional</option>
+                                </select>
+                            </div>
+
+                            {/* Tipo de destino */}
+                            <div className="shipment-field">
+                                <label className="shipment-label">Tipo de destino *</label>
+                                <select
+                                    name="destinationType"
+                                    className="shipment-input"
+                                    required
+                                    onChange={handleChange}
+                                >
+                                    <option value="Nacional">Nacional</option>
+                                    <option value="Internacional">Internacional</option>
+                                </select>
+                            </div>
+
+                            {/* Descripción — ocupa las 2 columnas */}
+                            <div className="shipment-field full">
+                                <label className="shipment-label">Descripción de paquete *</label>
+                                <textarea
+                                    name="packageDescription"
+                                    className="shipment-textarea"
+                                    required
+                                    placeholder="Ingrese su descripción"
+                                    onChange={handleChange}
+                                ></textarea>
+                            </div>
+
+                            {/* Peso */}
+                            <div className="shipment-field">
+                                <label className="shipment-label">Peso *</label>
+                                <input
+                                    type="number"
+                                    name="weight"
+                                    className="shipment-input"
+                                    required
+                                    placeholder="Ingrese el peso del paquete"
+                                    onChange={handleChange}
+                                />
+                            </div>
+
+                            {/* Tipo de servicio */}
+                            <div className="shipment-field">
+                                <label className="shipment-label">Tipo de servicio *</label>
+                                <select
+                                    name="serviceType"
+                                    className="shipment-input"
+                                    required
+                                    onChange={handleChange}
+                                >
+                                    <option value="Estandar">Estándar</option>
+                                    <option value="Expres">Exprés</option>
+                                </select>
+                            </div>
 
                         </div>
 
-                        <div className="shipment-total">
-                            Total estimado:
-                            <span>
-                                Q{calculateCost()}
-                            </span>
-                        </div>
+                        {/* Fila inferior: checks a la izquierda, total + botón a la derecha */}
+                        <div className="shipment-bottom-row">
 
-                        <button
-                            type="submit"
-                            className="shipment-button"
-                        >
-                            Crear envío
-                        </button>
+                            <div className="shipment-checks">
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="homePickup"
+                                        onChange={handleChange}
+                                    />
+                                    Recolección a domicilio
+                                </label>
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="insurance"
+                                        onChange={handleChange}
+                                    />
+                                    Seguro contra pérdida
+                                </label>
+                            </div>
+
+                            <div className="shipment-right-col">
+                                <div className="shipment-total">
+                                    Total estimado:
+                                    <span>Q{calculateCost()}</span>
+                                </div>
+                                <button type="submit" className="shipment-button">
+                                    Crear envío
+                                </button>
+                            </div>
+
+                        </div>
 
                     </form>
 

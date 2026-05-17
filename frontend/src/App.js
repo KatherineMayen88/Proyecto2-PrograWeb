@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 
 import Landing from './pages/Landing';
 import Login from './pages/Login';
@@ -9,41 +9,48 @@ import MyShipments from './pages/MyShipments';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminUsers from './pages/AdminUsers';
 import AdminShipments from './pages/AdminShipments';
-
-import ProtectedRoute from './components/ProtectedRoute';
-
-import AdminRoute from './components/AdminRoute';
-
 import AdminContacts from './pages/AdminContacts';
 
+import ProtectedRoute from './components/ProtectedRoute';
+import AdminRoute from './components/AdminRoute';
+import Footer from './components/Footer';
+
+const PUBLIC_ROUTES = ['/'];
 
 function App() {
+  const { pathname } = useLocation();
+  const showFooter = PUBLIC_ROUTES.includes(pathname);
+
   return (
-    <Routes>
+    <>
+      <Routes>
 
-      <Route path="/" element={<Landing />} />
+        <Route path="/" element={<Landing />} />
 
-      <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login />} />
 
-      <Route path="/register" element={<Register />} />
+        <Route path="/register" element={<Register />} />
 
-      <Route path="/dashboard" element={<ProtectedRoute> <ClientDashboard />  </ProtectedRoute>} />
+        <Route path="/dashboard" element={<ProtectedRoute> <ClientDashboard /> </ProtectedRoute>} />
 
-      <Route path="/shipments/new" element={<ProtectedRoute> <CreateShipment /> </ProtectedRoute>} />
+        <Route path="/shipments/new" element={<ProtectedRoute> <CreateShipment /> </ProtectedRoute>} />
 
-      <Route path="/shipments" element={<ProtectedRoute> <MyShipments /> </ProtectedRoute>} />
+        <Route path="/shipments" element={<ProtectedRoute> <MyShipments /> </ProtectedRoute>} />
 
-      <Route path="/admin" element={<AdminRoute> <AdminDashboard /> </AdminRoute>} />
+        <Route path="/admin" element={<AdminRoute> <AdminDashboard /> </AdminRoute>} />
 
-      <Route path="/admin/users" element={<AdminRoute> <AdminUsers /> </AdminRoute>} />
+        <Route path="/admin/users" element={<AdminRoute> <AdminUsers /> </AdminRoute>} />
 
-      <Route path="/admin/shipments" element={<AdminRoute> <AdminShipments /> </AdminRoute>} />
+        <Route path="/admin/shipments" element={<AdminRoute> <AdminShipments /> </AdminRoute>} />
 
-      <Route path="/admin/contacts" element={ <AdminRoute> <AdminContacts /> </AdminRoute> } />
-    
-    </Routes>
+        <Route path="/admin/contacts" element={<AdminRoute> <AdminContacts /> </AdminRoute>} />
 
+      </Routes>
+
+      {showFooter && <Footer />}
+    </>
   );
 }
 
 export default App;
+

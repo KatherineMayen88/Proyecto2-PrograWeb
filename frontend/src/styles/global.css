@@ -209,7 +209,6 @@ body {
 }
 
 
-
 .hero .hero-right p {
     color: rgb(255, 255, 255);
     font-size: 15px;
@@ -234,8 +233,6 @@ body {
     border-radius: 999px;
     font-weight: 700;
 }
-
-
 
 /* --------------------------------------------------------- SERVICIOS --------------------------------------------------------- */
 
@@ -682,8 +679,6 @@ body {
     transform: translateY(-8px) rotate(-45deg);
 }
 
-
-
 /* --------------------------------------------------------- RESPONSIVE --------------------------------------------------------- */
 
 @media (max-width: 900px) {
@@ -792,7 +787,7 @@ body {
         grid-template-columns: 1fr;
     }
 
-    /* ── margenes laterales en mobile ── */
+    /* ── Márgenes laterales en mobile ── */
     .services-section,
     .faq-section,
     .contact-section {
@@ -825,7 +820,7 @@ body {
 }
 
 
-/* --------------------------------------------------------- LOGIN ---------------------------------------------------------*/
+/* --------------------------------------------------------- LOGINN ---------------------------------------------------------*/
 .auth-page {
     min-height: 100vh;
     background: linear-gradient(135deg, #2b2463, #4a22a5);
@@ -903,7 +898,7 @@ body {
 
 /* --------------------------------------------------------- DASHBOARD ---------------------------------------------------------*/
 
-/*  Topbar mobile ── */
+/* ── Topbar mobile ── */
 .dashboard-topbar {
     display: none;
     position: fixed;
@@ -948,7 +943,7 @@ body {
 .sidebar-toggle.open span:nth-child(2) { opacity: 0; }
 .sidebar-toggle.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-/*  Overlay ── */
+/* ── Overlay ── */
 .sidebar-overlay {
     display: none;
     position: fixed;
@@ -1024,10 +1019,10 @@ body {
     padding: 48px;
     background: #f7f7f8;
     min-width: 0;
+    overflow-x: hidden;
 }
 
-
-/* --------------------------------------------------------- Responsive --------------------------------------------------------- */
+/*  Responsive --------------------------------------------------------- */
 @media (max-width: 768px) {
 
     .dashboard-topbar { display: flex; }
@@ -1050,7 +1045,7 @@ body {
     .sidebar.open { left: 0; }
 
     .dashboard-content {
-        padding: 225px 16px 32px;
+        padding: 112px 16px 32px;
     }
 
     .stats-grid { grid-template-columns: 1fr 1fr; }
@@ -1130,7 +1125,7 @@ body {
     font-size: 28px;
 }
 
-
+/* Grid de 2 columnas para los campos */
 .shipment-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1142,7 +1137,7 @@ body {
     flex-direction: column;
 }
 
-
+/* Campo que ocupa las 2 columnas */
 .shipment-field.full {
     grid-column: 1 / -1;
 }
@@ -1206,7 +1201,7 @@ body {
     border-color: #11a7e5;
 }
 
-
+/* Fila inferior: checks + total + botón */
 .shipment-bottom-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1421,7 +1416,7 @@ body {
 }
 
 
-/* --------------------------------------------------------- admin dashboard ---------------------------------------------------------*/
+/*  ---------------------------------------------------------admin dashboard ---------------------------------------------------------*/
 .stats-grid {
     margin-top: 40px;
     display: grid;
@@ -1584,12 +1579,6 @@ select:focus {
     }
 }
 
-
-.dashboard-content {
-    padding: 48px;
-    background: #f7f7f8;
-    overflow-x: hidden;
-}
 
 .stats-grid {
     margin-top: 36px;

@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import api from '../api/axios';
+import ClientSidebar from '../components/ClientSidebar';
 
 function CreateShipment() {
 
@@ -21,10 +22,7 @@ function CreateShipment() {
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
-        setFormData({
-            ...formData,
-            [name]: type === 'checkbox' ? checked : value
-        });
+        setFormData({ ...formData, [name]: type === 'checkbox' ? checked : value });
     };
 
     const calculateCost = () => {
@@ -41,208 +39,84 @@ function CreateShipment() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (
-            !formData.recipientName.trim() ||
-            !formData.recipientPhone.trim() ||
-            !formData.destinationAddress.trim() ||
-            !formData.packageDescription.trim() ||
-            !formData.weight
-        ) {
+        if (!formData.recipientName.trim() || !formData.recipientPhone.trim() ||
+            !formData.destinationAddress.trim() || !formData.packageDescription.trim() || !formData.weight) {
             alert('Complete todos los campos.');
             return;
         }
         try {
             await api.post('/shipments', { ...formData, cost: calculateCost() });
-            alert('Envío creado correctamente');
+            alert('Envio creado correctamente');
             navigate('/shipments');
         } catch (error) {
-            alert('Error creando envío');
+            alert('Error creando envio');
         }
     };
 
     return (
         <div className="dashboard-page">
-
-            <aside className="sidebar">
-                <div>
-                    <h2 className="sidebar-logo">SkyShip<br />Client</h2>
-                    <nav className="sidebar-nav">
-                        <Link to="/dashboard">★ &nbsp; Dashboard</Link>
-                        <Link to="/shipments/new">★ &nbsp; Crear envío</Link>
-                        <Link to="/shipments">★ &nbsp; Mis envíos</Link>
-                    </nav>
-                </div>
-                <button
-                    className="logout-button"
-                    onClick={() => {
-                        localStorage.removeItem('token');
-                        localStorage.removeItem('role');
-                        window.location.href = '/login';
-                    }}
-                >
-                    Cerrar sesión
-                </button>
-            </aside>
-
+            <ClientSidebar />
             <main className="dashboard-content">
-
                 <div className="shipment-form-container">
-
-                    <h1 className="shipment-title">Crear envío en SkyShip Express</h1>
-
+                    <h1 className="shipment-title">Crear envio en SkyShip Express</h1>
                     <form onSubmit={handleSubmit}>
-
                         <div className="shipment-grid">
-
-                            {/* Nombre completo */}
                             <div className="shipment-field">
                                 <label className="shipment-label">Nombre completo *</label>
-                                <input
-                                    type="text"
-                                    name="recipientName"
-                                    required
-                                    className="shipment-input"
-                                    placeholder="Ingrese su nombre completo"
-                                    onChange={handleChange}
-                                />
+                                <input type="text" name="recipientName" required className="shipment-input" placeholder="Ingrese su nombre completo" onChange={handleChange} />
                             </div>
-
-                            {/* Teléfono */}
                             <div className="shipment-field">
                                 <label className="shipment-label">Telefono *</label>
-                                <input
-                                    type="text"
-                                    name="recipientPhone"
-                                    required
-                                    className="shipment-input"
-                                    placeholder="Ingrese su numero de telefono"
-                                    onChange={handleChange}
-                                />
+                                <input type="text" name="recipientPhone" required className="shipment-input" placeholder="Ingrese su numero de telefono" onChange={handleChange} />
                             </div>
-
-                            {/* Dirección — ocupa las 2 columnas */}
                             <div className="shipment-field full">
                                 <label className="shipment-label">Direccion *</label>
-                                <input
-                                    type="text"
-                                    name="destinationAddress"
-                                    required
-                                    className="shipment-input"
-                                    placeholder="Ingrese su dirección de destino"
-                                    onChange={handleChange}
-                                />
+                                <input type="text" name="destinationAddress" required className="shipment-input" placeholder="Ingrese su direccion de destino" onChange={handleChange} />
                             </div>
-
-                            {/* Región */}
                             <div className="shipment-field">
-                                <label className="shipment-label">Región *</label>
-                                <select
-                                    name="region"
-                                    className="shipment-input"
-                                    required
-                                    onChange={handleChange}
-                                >
+                                <label className="shipment-label">Region *</label>
+                                <select name="region" className="shipment-input" required onChange={handleChange}>
                                     <option value="Metropolitana">Metropolitana</option>
                                     <option value="Departamental">Departamental</option>
                                     <option value="Internacional">Internacional</option>
                                 </select>
                             </div>
-
-                            {/* Tipo de destino */}
                             <div className="shipment-field">
                                 <label className="shipment-label">Tipo de destino *</label>
-                                <select
-                                    name="destinationType"
-                                    className="shipment-input"
-                                    required
-                                    onChange={handleChange}
-                                >
+                                <select name="destinationType" className="shipment-input" required onChange={handleChange}>
                                     <option value="Nacional">Nacional</option>
                                     <option value="Internacional">Internacional</option>
                                 </select>
                             </div>
-
-                            {/* Descripción — ocupa las 2 columnas */}
                             <div className="shipment-field full">
-                                <label className="shipment-label">Descripción de paquete *</label>
-                                <textarea
-                                    name="packageDescription"
-                                    className="shipment-textarea"
-                                    required
-                                    placeholder="Ingrese su descripción"
-                                    onChange={handleChange}
-                                ></textarea>
+                                <label className="shipment-label">Descripcion de paquete *</label>
+                                <textarea name="packageDescription" className="shipment-textarea" required placeholder="Ingrese su descripcion" onChange={handleChange}></textarea>
                             </div>
-
-                            {/* Peso */}
                             <div className="shipment-field">
-                                <label className="shipment-label">Peso *</label>
-                                <input
-                                    type="number"
-                                    name="weight"
-                                    className="shipment-input"
-                                    required
-                                    placeholder="Ingrese el peso del paquete"
-                                    onChange={handleChange}
-                                />
+                                <label className="shipment-label">Peso (kg) *</label>
+                                <input type="number" name="weight" className="shipment-input" required placeholder="Ingrese el peso del paquete" onChange={handleChange} />
                             </div>
-
-                            {/* Tipo de servicio */}
                             <div className="shipment-field">
                                 <label className="shipment-label">Tipo de servicio *</label>
-                                <select
-                                    name="serviceType"
-                                    className="shipment-input"
-                                    required
-                                    onChange={handleChange}
-                                >
-                                    <option value="Estandar">Estándar</option>
-                                    <option value="Expres">Exprés</option>
+                                <select name="serviceType" className="shipment-input" required onChange={handleChange}>
+                                    <option value="Estandar">Estandar</option>
+                                    <option value="Expres">Expres</option>
                                 </select>
                             </div>
-
                         </div>
-
-                        {/* Fila inferior: checks a la izquierda, total + botón a la derecha */}
                         <div className="shipment-bottom-row">
-
                             <div className="shipment-checks">
-                                <label>
-                                    <input
-                                        type="checkbox"
-                                        name="homePickup"
-                                        onChange={handleChange}
-                                    />
-                                    Recolección a domicilio
-                                </label>
-                                <label>
-                                    <input
-                                        type="checkbox"
-                                        name="insurance"
-                                        onChange={handleChange}
-                                    />
-                                    Seguro contra pérdida
-                                </label>
+                                <label><input type="checkbox" name="homePickup" onChange={handleChange} /> Recoleccion a domicilio</label>
+                                <label><input type="checkbox" name="insurance" onChange={handleChange} /> Seguro contra perdida</label>
                             </div>
-
                             <div className="shipment-right-col">
-                                <div className="shipment-total">
-                                    Total estimado:
-                                    <span>Q{calculateCost()}</span>
-                                </div>
-                                <button type="submit" className="shipment-button">
-                                    Crear envío
-                                </button>
+                                <div className="shipment-total">Total estimado:<span>Q{calculateCost()}</span></div>
+                                <button type="submit" className="shipment-button">Crear envio</button>
                             </div>
-
                         </div>
-
                     </form>
-
                 </div>
-
             </main>
-
         </div>
     );
 }

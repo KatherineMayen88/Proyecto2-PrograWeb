@@ -4,8 +4,99 @@ import Navbar from '../components/Navbar';
 import aboutImg from '../assets/about.png';
 import { useState } from 'react';
 
+import api from '../api/axios';
+
+import { validateName, validatePhone, validateEmail } from '../utils/validations';
 
 function Landing() {
+
+    // seguimeinto de paquete
+    const [trackingCode, setTrackingCode] = useState('');
+    const [trackingResult, setTrackingResult] = useState(null);
+    const [trackingError, setTrackingError] = useState('');
+
+    // CONTACTO
+    const [contactData, setContactData] = useState({
+        fullName: '',
+        phone: '',
+        email: '',
+        message: ''
+    });
+
+    // FUNCION HANDLE CHANGE
+    const handleContactChange = (e) => {
+        setContactData({
+            ...contactData,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    //SUBMIT
+    const handleContactSubmit = async (e) => {
+        e.preventDefault();
+
+        if (!validateName(contactData.fullName)) {
+            alert('El nombre completo solo debe contener letras.');
+            return;
+        }
+
+        if (!validatePhone(contactData.phone)) {
+            alert('El teléfono solo debe contener números y máximo 15 dígitos.');
+            return;
+        }
+
+        if (!validateEmail(contactData.email)) {
+            alert('El correo debe contener @ y terminar en .com.');
+            return;
+        }
+
+        if (!contactData.message.trim()) {
+            alert('Ingrese un mensaje.');
+            return;
+        }
+
+        try {
+            await api.post('/contact', contactData);
+
+            alert('Mensaje enviado correctamente');
+
+            setContactData({
+                fullName: '',
+                phone: '',
+                email: '',
+                message: ''
+            });
+
+        } catch (error) {
+            alert('Error enviando mensaje');
+        }
+    };
+
+
+    const handleTracking = async () => {
+
+        try {
+
+            setTrackingError('');
+
+            const response = await api.get(
+                `/shipments/track/${trackingCode}`
+            );
+
+            setTrackingResult(response.data);
+
+        } catch (error) {
+
+            setTrackingResult(null);
+
+            setTrackingError(
+                'No se encontró el paquete'
+            );
+
+        }
+    };
+
+
     return (
         <>
             <Navbar />
@@ -21,8 +112,68 @@ function Landing() {
                         <div className="track-card">
                             <h3>Rastrea tu pedido</h3>
                             <p>Consulta el estado de tu paquete usando tu código de guía.</p>
-                            <input placeholder="Ej. SKY-ABC123" />
-                            <button>Rastrear paquete</button>
+                            <input
+                                type="text"
+                                placeholder="Ej. SKY-ABC123"
+                                className="hero-input"
+                                value={trackingCode}
+                                onChange={(e) =>
+                                    setTrackingCode(e.target.value)
+                                }
+                            />
+                            <button
+                                className="hero-button"
+                                onClick={handleTracking}
+                            >
+                                Rastrear paquete
+                            </button>
+
+
+                            {
+                                trackingResult && (
+
+                                    <div className="tracking-result">
+
+                                        <h4>
+                                            Estado del paquete
+                                        </h4>
+
+                                        <p>
+                                            <strong>Tracking:</strong>
+                                            {' '}
+                                            {trackingResult.trackingCode}
+                                        </p>
+
+                                        <p>
+                                            <strong>Destinatario:</strong>
+                                            {' '}
+                                            {trackingResult.recipientName}
+                                        </p>
+
+                                        <p>
+                                            <strong>Estado:</strong>
+                                            {' '}
+                                            {trackingResult.status}
+                                        </p>
+
+                                        <p>
+                                            <strong>Región:</strong>
+                                            {' '}
+                                            {trackingResult.region}
+                                        </p>
+
+                                    </div>
+
+                                )
+                            }
+
+                            {
+                                trackingError && (
+                                    <p className="tracking-error">
+                                        {trackingError}
+                                    </p>
+                                )
+                            }
                         </div>
                     </div>
 
@@ -168,29 +319,65 @@ function Landing() {
                         </div>
                     </div>
 
-                    <form className="contact-form">
+                    <form className="contact-form" onSubmit={handleContactSubmit}>
                         <label className="contact-label">Nombre completo *</label>
-                        <input className="contact-input" placeholder="Ingrese su nombre completo" />
+                        <input
+                            className="contact-input"
+                            name="fullName"
+                            value={contactData.fullName}
+                            onChange={handleContactChange}
+                            required
+                            placeholder="Ingrese su nombre completo"
+                        />
 
                         <div className="contact-row">
                             <div>
                                 <label className="contact-label">Teléfono *</label>
-                                <input className="contact-input" placeholder="Ingrese su teléfono" />
+                                <input
+                                    className="contact-input"
+                                    name="phone"
+                                    value={contactData.phone}
+                                    //onChange={handleContactChange}
+                                    onChange={(e) => {
+                                        const value = e.target.value;
+
+                                        if (/^[0-9]*$/.test(value) && value.length <= 15) {
+                                            handleContactChange(e);
+                                        }
+                                    }}
+                                    required
+                                    placeholder="Ingrese su teléfono"
+                                />
                             </div>
 
                             <div>
                                 <label className="contact-label">Correo electrónico *</label>
-                                <input className="contact-input" placeholder="Ingrese su correo electrónico" />
+                                <input
+                                    className="contact-input"
+                                    name="email"
+                                    value={contactData.email}
+                                    onChange={handleContactChange}
+                                    required
+                                    placeholder="Ingrese su correo electrónico"
+                                />
                             </div>
                         </div>
 
                         <label className="contact-label">Mensaje *</label>
-                        <textarea className="contact-textarea" placeholder="¿En qué podemos ayudarte?"></textarea>
-
+                        <textarea
+                            className="contact-textarea"
+                            name="message"
+                            value={contactData.message}
+                            onChange={handleContactChange}
+                            required
+                            placeholder="¿En qué podemos ayudarte?"
+                        ></textarea>
                         <button type="submit" className="contact-button">Enviar mensaje</button>
                     </form>
                 </div>
             </section>
+
+
         </>
     );
 }

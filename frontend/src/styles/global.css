@@ -784,18 +784,6 @@ body {
         font-size: 30px;
     }
 
-    .dashboard-page {
-        grid-template-columns: 1fr;
-    }
-
-    .sidebar {
-        display: none;
-    }
-
-    .dashboard-content {
-        padding: 24px 16px;
-    }
-
     .dashboard-cards {
         grid-template-columns: 1fr;
     }
@@ -910,6 +898,63 @@ body {
 
 
 /*DASHBOARD*/
+
+/* ── Topbar mobile ── */
+.dashboard-topbar {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 60px;
+    background: #2b2463;
+    z-index: 200;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.dashboard-topbar-logo {
+    color: white;
+    font-size: 18px;
+    font-weight: 900;
+    margin: 0;
+}
+
+.dashboard-topbar-logo span { color: #11a7e5; }
+
+.sidebar-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 4px;
+}
+
+.sidebar-toggle span {
+    display: block;
+    width: 24px;
+    height: 3px;
+    background: white;
+    border-radius: 3px;
+    transition: 0.3s ease;
+}
+
+.sidebar-toggle.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.sidebar-toggle.open span:nth-child(2) { opacity: 0; }
+.sidebar-toggle.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+/* ── Overlay ── */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 150;
+}
+.sidebar-overlay.visible { display: block; }
+
+/* ── Layout ── */
 .dashboard-page {
     min-height: 100vh;
     display: grid;
@@ -923,6 +968,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    min-height: 100vh;
 }
 
 .sidebar-logo {
@@ -931,10 +977,16 @@ body {
     font-weight: 900;
 }
 
+.sidebar-subtitle {
+    color: rgba(255,255,255,0.6);
+    font-size: 13px;
+    margin: -30px 0 24px;
+}
+
 .sidebar-nav {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 8px;
 }
 
 .sidebar-nav a {
@@ -942,11 +994,12 @@ body {
     text-decoration: none;
     padding: 14px 16px;
     border-radius: 10px;
-    transition: 0.2s ease;
+    font-weight: 600;
+    transition: background 0.2s ease;
 }
 
 .sidebar-nav a:hover {
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(255,255,255,0.12);
 }
 
 .logout-button {
@@ -957,11 +1010,58 @@ body {
     border-radius: 999px;
     font-weight: 800;
     cursor: pointer;
+    transition: background 0.2s ease;
+    width: 100%;
 }
+
+.logout-button:hover { background: #0d8fc5; }
 
 .dashboard-content {
     padding: 48px;
     background: #f7f7f8;
+    min-width: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+
+    .dashboard-topbar { display: flex; }
+
+    .dashboard-page {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 0; left: -280px;
+        width: 260px;
+        height: 100vh;
+        z-index: 160;
+        transition: left 0.3s ease;
+        padding-top: 80px;
+        overflow-y: auto;
+    }
+
+    .sidebar.open { left: 0; }
+
+    .dashboard-content {
+        padding: 80px 16px 32px;
+    }
+
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .metrics-grid { grid-template-columns: 1fr; }
+    .charts-grid { grid-template-columns: 1fr; }
+    .dashboard-cards { grid-template-columns: 1fr; }
+    .shipments-grid { grid-template-columns: 1fr; }
+    .shipment-grid { grid-template-columns: 1fr; }
+    .shipment-field.full { grid-column: auto; }
+    .shipment-bottom-row { grid-template-columns: 1fr; gap: 20px; }
+    .shipment-form-container { padding: 24px 16px; }
+    .table-container { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+}
+
+@media (max-width: 480px) {
+    .stats-grid { grid-template-columns: 1fr; }
 }
 
 .dashboard-header h1 {
@@ -1589,13 +1689,6 @@ select:focus {
     .charts-grid {
         grid-template-columns: 1fr;
     }
-}
-
-.sidebar-subtitle {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 13px;
-    line-height: 1.5;
-    margin-top: 10px;
 }
 
 .dashboard-date {

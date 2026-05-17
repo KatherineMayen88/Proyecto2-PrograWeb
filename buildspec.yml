@@ -1,0 +1,15 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+  build:
+    commands:
+      - cd backend
+      - npm install
+      - zip -r ../backend-deploy.zip . -x "node_modules/*" ".env" ".git/*"
+
+artifacts:
+  files:
+    - backend-deploy.zip

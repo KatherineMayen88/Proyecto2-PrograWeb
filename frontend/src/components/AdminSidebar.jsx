@@ -45,10 +45,12 @@ function AdminSidebar() {
                         <Link to="/admin/shipments" onClick={close}>★ &nbsp; Envíos</Link>
                         <Link to="/admin/contacts" onClick={close}>★ &nbsp; Contactos</Link>
                     </nav>
+
+                    <button className="logout-button" onClick={logout}>
+                        Cerrar sesión
+                    </button>
+
                 </div>
-                <button className="logout-button" onClick={logout}>
-                    Cerrar sesión
-                </button>
             </aside>
         </>
     );

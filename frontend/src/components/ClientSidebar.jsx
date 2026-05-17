@@ -43,10 +43,11 @@ function ClientSidebar() {
                         <Link to="/shipments/new" onClick={close}>★ &nbsp; Crear envío</Link>
                         <Link to="/shipments" onClick={close}>★ &nbsp; Mis envíos</Link>
                     </nav>
+
+                    <button className="logout-button" onClick={logout}>
+                        Cerrar sesión
+                    </button>
                 </div>
-                <button className="logout-button" onClick={logout}>
-                    Cerrar sesión
-                </button>
             </aside>
         </>
     );

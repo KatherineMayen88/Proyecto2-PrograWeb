@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://proyecto2-prograweb-backend-env.eba-z2smuvpp.us-east-2.elasticbeanstalk.com'
+    baseURL: 'http://proyecto2-prograweb-backend-env.eba-z2smuvpp.us-east-2.elasticbeanstalk.com/api'
 });
 
 api.interceptors.request.use((config) => {

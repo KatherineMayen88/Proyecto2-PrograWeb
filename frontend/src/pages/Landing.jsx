@@ -102,6 +102,7 @@ function Landing() {
 
     return (
         <>
+            {toast && <Toast key={toast.id} message={toast.message} type={toast.type} onClose={hideToast} />}
             <Navbar />
 
             {/* ------------------------- INICIO ------------------------- */}

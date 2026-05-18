@@ -3,12 +3,15 @@ import Navbar from '../components/Navbar';
 
 import aboutImg from '../assets/about.png';
 import { useState } from 'react';
+import Toast from '../components/Toast';
+import useToast from '../utils/useToast';
 
 import api from '../api/axios';
 
 import { validateName, validatePhone, validateEmail } from '../utils/validations';
 
 function Landing() {
+    const { toast, showToast, hideToast } = useToast();
 
     // seguimeinto de paquete
     const [trackingCode, setTrackingCode] = useState('');
@@ -36,29 +39,29 @@ function Landing() {
         e.preventDefault();
 
         if (!validateName(contactData.fullName)) {
-            alert('El nombre completo solo debe contener letras.');
+            showToast('El nombre completo solo debe contener letras.', 'error');
             return;
         }
 
         if (!validatePhone(contactData.phone)) {
-            alert('El teléfono solo debe contener números y máximo 15 dígitos.');
+            showToast('El teléfono solo debe contener solo números (máximo 15 dígitos).', 'error');
             return;
         }
 
         if (!validateEmail(contactData.email)) {
-            alert('El correo debe contener @ y terminar en .com.');
+            showToast('El correo debe contener @ y terminar en .com.', 'error');
             return;
         }
 
         if (!contactData.message.trim()) {
-            alert('Ingrese un mensaje.');
+            showToast('Ingrese un mensaje.', 'error');
             return;
         }
 
         try {
             await api.post('/contact', contactData);
 
-            alert('Mensaje enviado correctamente');
+            showToast('¡Mensaje enviado correctamente! Te contactaremos pronto.', 'success');
 
             setContactData({
                 fullName: '',
@@ -68,7 +71,7 @@ function Landing() {
             });
 
         } catch (error) {
-            alert('Error enviando mensaje');
+            showToast('Error al enviar el mensaje. Intenta de nuevo.', 'error');
         }
     };
 
@@ -446,5 +449,3 @@ function FAQ() {
         </section>
     );
 }
-
-
